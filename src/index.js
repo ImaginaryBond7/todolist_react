@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import { render } from "react-dom";
 import  axios  from "axios";
-let i = 0;
+
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [item, setItem] = useState("");
   const [searchValue, setSearchValue] = useState("");
+  const [iTitle, setiTitle] = useState("");
 
 // using it to call after each task to update the list and display the new array of lists
   const getTodo = async () => {
     const todoData= await axios.get('http://localhost:3001/todos');
-    console.log(todoData.data) 
+    //console.log(todoData.data) 
     setTodos(todoData.data)
   }
   
@@ -20,6 +21,7 @@ function App() {
     getTodo();
   }, [])
 
+  //////////////////////////////////////////////////////////////////////////////
   // Add function
   const addTodo = () => {
     if (item === "") {
@@ -28,7 +30,7 @@ function App() {
 
       const addTodoItem = async () => {
         const todoData = await axios.post('http://localhost:3001/todos', { "title": item });
-        console.log(todoData.data)
+        //console.log(todoData.data)
         //setTodos(todoData.data) nhi krna h cause data sirf store kr rhe fir getTodo() line no 46 pe sb chorr de rhe
         getTodo()
         // getTodo await ke baad call krna pdd rha pta nhi kyu at  line = line+6(48) pe ye kaam nhi kr rha tha old value hi show ho jaa rhi thi mtlb add hone se pehle getTodo ho jaa rha tha
@@ -40,18 +42,28 @@ function App() {
       // getTodo()
   };
 
+  ///////////////////////////////////////////////////////////////////////////////
   // Delete function
   ////////////////////id//////
   const deleteTodo = (id) => {
     // filter function filters out whatever doesn't satisfy the condition
     const deleteTodoItem = async () => {
-        const todoID = await axios.delete(`http://localhost:3001/todos/${id}`);
+        await axios.delete(`http://localhost:3001/todos/${id}`);
         getTodo()
 
       }
       deleteTodoItem()
       
   };
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Edit function
+ 
+
+  const editTodo = (title, id) => {
+    var editData = document.getElementById("ediText")
+
+  }
 
   // Check Todo items function
 //   const checkTodo = (id) =>{
@@ -65,17 +77,19 @@ function App() {
               {/* <input type="checkbox" onClick={() => checkTodo(todo.id)}/> */}
               <span>{todo.title}</span>
               <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+              <button onClick={() => editTodo(todo.id)}> Edit</button>
             </div>
     )
   )}
   else {
     todoList = todos.map((todo) => {
-        if (todo.text.search(searchValue) !== -1) {
+        if (todo.title.search(searchValue) !== -1) {
             return (
             <div className="todo">
                 {/* <input type="checkbox" onClick={() => checkTodo(todo.id)}/> */}
                 <span>{todo.title}</span>
-                <a onClick={() => deleteTodo(todo.id)}>Delete</a>
+                <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+                <button onClick={() => editTodo(todo.title, todo.id)}> Edit</button>
             </div>
             )
         }
@@ -93,6 +107,18 @@ function App() {
       />
       {/* {item} */}
       <button onClick={addTodo}>Add</button> <br />
+      <br />
+      <input
+        id="editText"
+        value={iTitle}
+        onChange={(iTitle) => {
+          setiTitle(iTitle.target.value);
+        }}
+        type="text"
+      />
+      {iTitle}
+      {/* {item} */}
+      <button >Save</button> <br />
       <br />
       <span>Search: </span>
       <input type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
