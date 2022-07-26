@@ -1,0 +1,121 @@
+* {
+    margin: 1vh;
+    padding: 1vh;
+    box-sizing: border-box;
+}
+button:hover{
+    background-color: #181823;
+    cursor: pointer;
+}
+
+:root {
+    --light-bg: #181823;
+    --dark-bg: #25253b;
+    --primary: #F54B64;
+    --white: #FFFFFF;
+}
+
+body{
+    background-color: var(--dark-bg);
+    height: 100%;
+    color: var(--white);
+}
+
+header{
+    text-align: center;
+    margin:20px;
+    width: 80%;
+    padding: 50px;
+    margin-left: 10%;
+    background-color: var(--dark-bg);
+    border-radius: 20px;
+    box-shadow: 0 -10px 40px var(--light-bg);
+    
+}
+
+.main{
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    margin-left: 10%;
+    padding: 50px;
+    background-color: var(--dark-bg);
+    border-radius: 20px;
+    box-shadow: 0 4px 40px var(--light-bg);
+
+}
+.main-container{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.sec-title {
+    font-size: 16px;
+    padding: 0.5em 0.5em;
+
+}
+
+.input{
+    font-size: 16px;
+    font-size: max(16px, 1em);
+    font-family: inherit;
+    /* border-radius: 8px; */
+    border: none;
+    padding: 0.25em 0.5em;
+    background-color: var(--dark-bg);
+    border-radius: 20px;
+    box-shadow: 0 0px 40px var(--light-bg);
+    color: white;
+}
+
+button {
+    background-color: var(--dark-bg);
+    border: 1px solid var(--white);
+    padding: 5px 20px;
+    margin-left: 10px;
+    color: var(--white);
+    border-radius: 20px;
+}
+
+.main-list{
+    margin: 40px auto;
+    justify-content: left;
+    flex-direction: column;
+}
+
+.list-title{
+    width: 100%;
+    padding-left: 100px;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.list-container{
+    padding-left: 50px;
+    width: 100%;
+}
+
+.striked{
+    text-decoration: line-through;
+}
+
+.task-content{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px auto;
+}
+
+.checkbox {
+    margin: 0 20px;
+    transform: scale(1.5);
+}
+
+.todo-search-box{
+    display: flex;
+    float: left;
+}
+
+.edit-container{
+    float: right;
+    width: 60%;
+}

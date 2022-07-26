@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { render } from "react-dom";
 import  axios  from "axios";
+import "./style.css";
 
 
 function App() {
@@ -58,11 +59,14 @@ function App() {
 
   //////////////////////////////////////////////////////////////////////////////
   // Edit function
- 
+  const editSave = () => {
+    alert('in development')
+  }
 
   const editTodo = (title, id) => {
-    var editData = document.getElementById("ediText")
-
+    console.log(id, title)
+    document.getElementById("editText").value = title
+    
   }
 
   // Check Todo items function
@@ -73,11 +77,11 @@ function App() {
   let todoList = "";
   if (searchValue === '') {
     todoList = todos.map((todo) => (
-        <div className="todo">
+        <div className="todo-upper">
               {/* <input type="checkbox" onClick={() => checkTodo(todo.id)}/> */}
               <span>{todo.title}</span>
               <button onClick={() => deleteTodo(todo.id)}>Delete</button>
-              <button onClick={() => editTodo(todo.id)}> Edit</button>
+              <button onClick={() => editTodo(todo.title, todo.id)}> Edit</button>
             </div>
     )
   )}
@@ -85,7 +89,7 @@ function App() {
     todoList = todos.map((todo) => {
         if (todo.title.search(searchValue) !== -1) {
             return (
-            <div className="todo">
+            <div className="todo-upper">
                 {/* <input type="checkbox" onClick={() => checkTodo(todo.id)}/> */}
                 <span>{todo.title}</span>
                 <button onClick={() => deleteTodo(todo.id)}>Delete</button>
@@ -98,32 +102,42 @@ function App() {
 
   return (
     <>
-      <input
-        value={item}
-        onChange={(e) => {
-          setItem(e.target.value);
-        }}
-        type="text"
-      />
-      {/* {item} */}
-      <button onClick={addTodo}>Add</button> <br />
-      <br />
-      <input
-        id="editText"
-        value={iTitle}
-        onChange={(iTitle) => {
-          setiTitle(iTitle.target.value);
-        }}
-        type="text"
-      />
-      {iTitle}
-      {/* {item} */}
-      <button >Save</button> <br />
-      <br />
-      <span>Search: </span>
-      <input type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
-      <div className="todoList">
-        {todoList}
+    <div className="todo-body">
+        <div className="todo-search-box">
+          <div className="search-bar">
+          <span>Add Todo: </span>
+            <input
+              value={item}
+              onChange={(e) => {
+                setItem(e.target.value);
+              }}
+              type="text"
+            />
+
+            <button onClick={addTodo}>Add</button>
+          </div>
+        </div>
+          <br />
+          <br />
+          <div className="edit-container">
+            <span>Edit your Todo here: </span>
+            <input
+              id="editText"
+              value={iTitle}
+              onChange={(iTitle) => {
+                setiTitle(iTitle.target.value);
+              }}
+              type="text"
+            />
+            <button onClick={editSave}>Save</button>
+            </div>
+          <br />
+          <br />
+          <span>Search: </span>
+          <input type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+          <div className="todoList">
+            {todoList}
+          </div>
       </div>
     </>
   );
